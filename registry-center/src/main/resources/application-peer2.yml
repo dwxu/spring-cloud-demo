@@ -1,0 +1,11 @@
+server:
+  port: 9901
+
+eureka:
+  instance:
+    hostname: peer2
+  client:
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: http://${eureka.host:peer1}:${eureka.port:9900}/eureka/

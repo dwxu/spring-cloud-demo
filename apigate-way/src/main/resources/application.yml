@@ -1,0 +1,32 @@
+server:
+  port: 80
+
+spring:
+  application:
+    name: api-gateway
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:9900}/eureka/
+  instance:
+    preferIpAddress: true
+    instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    leaseRenewalIntervalInSeconds: 10
+
+zuul:
+  sensitive-headers:
+  add-host-header: true
+  routes:
+    admin:
+      path: /admin/**
+      serviceId: admin-service
+    log:
+      path: /log/**
+      serviceId: log-service
+
+logging:
+  file: /var/log/demo/api-gateway.log
+
+hystrix.command.default.execution.isolation.thread:
+  timeoutInMilliseconds: 5000
