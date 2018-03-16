@@ -4,7 +4,17 @@ server:
 spring:
   application:
     name: admin-service
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.1.221/spring_cloud_demo?useUnicode=true&characterEncoding=utf8&allowMultiQueries=true
+    username: dwxu
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+
 eureka:
   client:
     serviceUrl:
       defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:9900}/eureka/
+
+mybatis:
+  mapperLocations: classpath:mybatis/mapper/*.xml
