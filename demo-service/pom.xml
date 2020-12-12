@@ -9,18 +9,22 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>registry-center</artifactId>
+    <artifactId>demo-service</artifactId>
 
     <dependencies>
-        <!-- eureka server -->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka-server</artifactId>
+            <artifactId>spring-cloud-starter-eureka</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-feign</artifactId>
         </dependency>
     </dependencies>
 
     <build>
-        <finalName>register-center</finalName>
+        <finalName>admin-service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>

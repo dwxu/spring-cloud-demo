@@ -25,8 +25,11 @@
         <module>registry-center</module>
         <module>log-service</module>
         <module>admin-service</module>
-        <module>apigate-way</module>
+        <module>api-gateway</module>
         <module>java-lib</module>
+        <module>demo-service</module>
+        <module>instance-1-service</module>
+        <module>instance-2-service</module>
     </modules>
 
     <parent>
