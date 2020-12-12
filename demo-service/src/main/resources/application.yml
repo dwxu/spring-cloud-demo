@@ -10,9 +10,20 @@ eureka:
     serviceUrl:
       defaultZone: http://${eureka.host:127.0.0.1}:${eureka.port:8761}/eureka/
 
+# 开启 fallback
 feign:
   hystrix:
     enabled: true
+
+# 负载均衡配置
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 60000 # 建立连接超时时间，原1000
+  ReadTimeout: 60000 # 请求处理的超时时间，5分钟
+  OkToRetryOnAllOperations: true # 所有操作都重试
+  MaxAutoRetriesNextServer: 5 # 重试发生，更换节点数最大值
+  MaxAutoRetries: 1 # 单个节点重试最大值
 
 logging:
   path: ./log
