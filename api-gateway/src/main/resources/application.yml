@@ -1,5 +1,5 @@
 server:
-  port: 80
+  port: 8080
 
 spring:
   application:
@@ -7,26 +7,41 @@ spring:
 
 eureka:
   client:
+    registry-fetch-interval-seconds: 5
     serviceUrl:
-      defaultZone: http://${eureka.host:localhost}:${eureka.port:9900}/eureka/
+      defaultZone: http://${eureka.host:localhost}:${eureka.port:8761}/eureka/
   instance:
     preferIpAddress: true
     instance-id: ${spring.cloud.client.ipAddress}:${server.port}
     leaseRenewalIntervalInSeconds: 10
 
+# 路由配置
 zuul:
+  retryable: true
   sensitive-headers:
   add-host-header: true
   routes:
-    admin:
-      path: /admin/**
-      serviceId: admin-service
-    log:
-      path: /log/**
-      serviceId: log-service
+    is:
+      path: /is/**
+      serviceId: instance-service
+
+# 全局服务配置
+ribbon:
+  eureka:
+    enabled: true
+  ConnectTimeout: 60000 # 建立连接超时时间，原1000
+  ReadTimeout: 60000 # 请求处理的超时时间，5分钟
+  OkToRetryOnAllOperations: true # 所有操作都重试
+  MaxAutoRetriesNextServer: 5 # 重试发生，更换节点数最大值
+  MaxAutoRetries: 1 # 单个节点重试最大值
+
+# 服务实例配置
+instance-service:
+  ribbon:
+    ConnectTimeout: 1000  # 连接超时时长，毫秒
+    ReadTimeout: 6000     # 读超时时长，毫秒
+    MaxAutoRetries:  0    # 请求失败一次则更换 server/服务实例 请求
+    MaxAutoRetriesNextServer: 1   # 单个 server/服务实例 尝试几次，如果不配，则会一直请求
 
 logging:
   file: /var/log/demo/api-gateway.log
-
-hystrix.command.default.execution.isolation.thread:
-  timeoutInMilliseconds: 5000

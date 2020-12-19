@@ -15,6 +15,6 @@ public class InfoController {
     public String info() {
         Date date = new Date();
         LOGGER.info(date.toString());
-        return "Hello world.";
+        return "[1] Hello world.";
     }
 }
